@@ -1,0 +1,9 @@
+<div>
+
+    <input type="text" id="searchInput" placeholder="Search..." #searchInp>
+    <button id="searchButton" (click)="performSearch()">Search</button>
+    <div>
+        <p *ngIf="searchText!=''"><strong>Search result for:</strong> {{ searchText }}</p>
+    </div>
+
+</div>

@@ -1,0 +1,135 @@
+<app-search (searchTextChanged)="onSearchByTitle($event)"></app-search>
+
+<div class="container mt-4" *ngIf="!isJobCreate">
+    <button class="delete-all-btn" (click)="onDeleteAllJob()"> Delete All </button>
+    <button (click)="addForm()">Add Jobs</button>
+    <div class="row">
+        <div class="col-md-6 mx-auto" class="block">
+            <div *ngFor="let job of FilteredJobs" class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{job.title}}</h5>
+                    <p class="card-text">{{job.company}}</p>
+                    <p class="card-text">{{job.location}}</p>
+                    <button (click)="onDeleteJob(job.id)" class="btn btn-danger">Delete</button>
+                    <button (click)="editForm(job.id)" class="btn btn-primary">Edit</button>
+                    <a [routerLink]="'/View-More/' + job.id" class="btn btn-link">View More</a>
+                    
+                    <!-- adding apply button on the particular job -->
+                    <!-- <div class="mt-3">
+                        <button  routerLink="/Apply" class="btn btn-success">
+                            Apply
+                        </button>
+
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container mt-4" *ngIf="isJobCreate">
+    <h2 style="text-align: center;">Job Post</h2>
+    <div class="row" >
+        <div class="col-md-6 mx-auto">
+            <form [formGroup]="reactiveForm" (ngSubmit)="onJobPost(reactiveForm.value)">
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" formControlName="title" class="form-control" placeholder="Title...">
+                    <small *ngIf="reactiveForm.get('title').invalid && reactiveForm.get('title').touched"
+                        class="text-danger">
+                        *Please enter the title of the job.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="company">Company:</label>
+                    <input type="text" id="company" formControlName="company" class="form-control"
+                        placeholder="Enter company">
+                    <small *ngIf="reactiveForm.get('company').invalid && reactiveForm.get('company').touched"
+                        class="text-danger">
+                        *Please enter the company.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" formControlName="location" class="form-control"
+                        placeholder="Enter location">
+                    <small *ngIf="reactiveForm.get('location').invalid && reactiveForm.get('location').touched"
+                        class="text-danger">
+                        *Please enter the Location.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <input type="text" id="description" formControlName="description" class="form-control"
+                        placeholder="Enter Description">
+                    <small *ngIf="reactiveForm.get('description').invalid && reactiveForm.get('description').touched"
+                        class="text-danger">
+                        *Please enter the Description.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <input type="text" id="category" formControlName="category" class="form-control"
+                        placeholder="Enter Category">
+                    <small *ngIf="reactiveForm.get('category').invalid && reactiveForm.get('category').touched"
+                        class="text-danger">
+                        *Please enter the Category.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="Qualification">Qualification:</label>
+                    <input type="text" id="Qualification" formControlName="qualification" class="form-control"
+                        placeholder="Enter Qualification">
+                    <small
+                        *ngIf="reactiveForm.get('qualification').invalid && reactiveForm.get('qualification').touched"
+                        class="text-danger">
+                        *Please enter the Qualification.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="Salary">Salary Range:</label>
+                    <input type="text" id="Salary" formControlName="salary" class="form-control"
+                        placeholder="Enter Salary">
+                    <small *ngIf="reactiveForm.get('salary').invalid && reactiveForm.get('salary').touched"
+                        class="text-danger">
+                        *Please enter the Salary.
+                    </small>
+                </div>
+
+
+                <button class="btn-post" type="submit" [disabled]="reactiveForm.invalid">
+                    {{isEditMode? 'Edit Post': 'Add Post'}}
+                </button>
+                <br>
+
+            </form>
+            <!-- <button class="fetch-btn" (click)="onFetchJobs()"> Fetch Post</button> -->
+            
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6 mx-auto" class="block">
+            <div *ngFor="let job of jobs" class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{job.title}}</h5>
+                    <p class="card-text">{{job.company}}</p>
+                    <p class="card-text">{{job.location}}</p>
+                    <button (click)="onDeleteJob(job.id)" class="btn btn-danger">Delete</button>
+                    <button (click)="editForm(job.id)" class="btn btn-primary">Edit</button>
+                    <a [routerLink]="'/View-More/' + job.id" class="btn btn-link">View More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

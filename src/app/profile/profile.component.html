@@ -1,0 +1,60 @@
+<div class="container mt-4" *ngIf="!isEditing">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <img src="https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png"
+                    class="card-img-top" alt="User Image" height="300" width="110">
+                <!-- <img src="{{ userProfile.image }}" class="card-img-top" alt="User Image"> -->
+                <div class="card-body">
+                    <h5 class="card-title">user.name</h5>
+                    <p class="card-text">user.email</p>
+                    <!-- <h5 class="card-title">{{ userProfile.name }}</h5>
+                    <p class="card-text">{{ userProfile.email }}</p> -->
+
+                    <!-- <button>Save</button> -->
+
+                    <button class="btn btn-primary" (click)="editProfile()" routerLink="/Profile" [queryParams]="{edit:true}">Edit Profile</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container mt-4" *ngIf="isEditing">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h3 class="">Profile Updation</h3>
+            <div class="card">
+
+                <form [formGroup]="profileForm" (ngSubmit)="OnProfileFormSubmit()">
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-5 col-form-label" for="Name">Enter Name:</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="Name" formControlName="name">
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-5 col-form-label" for="Photo">Enter Photo Url:</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="Photo" formControlName="photo">
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <button type="submit" class="btn btn-primary" >Save</button>
+                        <button type="button" class="btn btn-secondary" (click)="noEditProfile()">Discard</button>
+                    </div>
+                    
+                </form>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+

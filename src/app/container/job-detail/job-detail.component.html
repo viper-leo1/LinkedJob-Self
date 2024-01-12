@@ -1,0 +1,211 @@
+<div class="container mt-4" *ngIf="!isApply">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card mb-3">
+                <div class="card-body" *ngIf="detailedView">
+                    <h5 class="card-title">{{ detailedView.title }}</h5>
+                    <p class="card-text"><strong>{{ detailedView.company | uppercase }}</strong></p>
+                    <p class="card-text">{{ detailedView.location }}</p>
+                    <p class="card-text">{{ detailedView.description }}</p>
+                    <p class="card-text">{{ detailedView.category }}</p>
+                    <p class="card-text">{{ detailedView.qualification }}</p>
+                    <p class="card-text">{{ detailedView.salary }}</p>
+
+                    <button type="button" class="btn btn-success btn-lg" (click)="onFormSubmit()">Apply</button>
+                    <br>
+                    <div class="mt-3">
+                        <a routerLink="/Home" class="btn btn-primary">Back</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container mt-4" *ngIf="isApply">
+    <h1 style="text-align: center; color: #3498db;">Job Application Form</h1>
+    <p style="text-align: center; color: #555;">Please Fill Out the Form Below to Submit Your Job Application!</p>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+
+            <form [formGroup]="applyForm" (ngSubmit)="applyJobForm()">
+
+                <div class="form-group">
+
+                    <div class="row">
+                        <label class="form-label">Name<span *ngIf="applyForm.get('firstname').invalid" style="color: red;">*</span>:</label>
+                        <div class="col">
+                            <!-- <label for="Firstname" >Firstname:</label> -->
+                            <input type="text" id="Firstname" formControlName="firstname" aria-label="Firstname"
+                                class="form-control" placeholder="firstname...">
+                            <small *ngIf="applyForm.get('firstname').invalid && applyForm.get('firstname').touched"
+                                class="text-danger">
+                                *Please enter the Firstname.
+                            </small>
+                        </div>
+                        <div class="col">
+                            <!-- <label for="Lastname">Lastname:</label> -->
+                            <input type="text" id="Lastname" formControlName="lastname" aria-label="Lastname"
+                                class="form-control" placeholder="lastname...">
+                            <small *ngIf="applyForm.get('lastname').invalid && applyForm.get('lastname').touched"
+                                class="text-danger">
+                                *Please enter the Lastname.
+                            </small>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group" class="form-label">
+                    <label for="Email" class="form-label">Email<i *ngIf="applyForm.get('email').invalid"
+                         class="fas fa-exclamation-circle" style="color: red;">*</i>:</label>
+                    <input type="text" id="Email" formControlName="email" class="form-control"
+                        placeholder="abc@gmail.com">
+                    <small *ngIf="applyForm.get('email').invalid && applyForm.get('email').touched" class="text-danger">
+                        *Please enter the Email.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="Phone" class="form-label">Phone Number<i *ngIf="applyForm.get('phoneNo').invalid" 
+                        class="fas fa-exclamation-circle" style="color: red;">*</i>:</label>
+                    <input type="text" id="Phone" formControlName="phoneNo" class="form-control"
+                        placeholder="9100091000">
+                    <small *ngIf="applyForm.get('phoneNo').invalid && applyForm.get('phoneNo').touched" class="text-danger">
+                        *Please enter the Phone number.
+                    </small>
+                </div>
+
+                <div formGroupName="address" >
+
+                    <div class="form-group">
+                        <label for="Address1" class="form-label">Address<i *ngIf="applyForm.get('address.address1').invalid" 
+                            class="fas fa-exclamation-circle" style="color: red;">*</i>:</label>
+                        <input type="text" id="Address1" formControlName="address1" class="form-control"
+                            placeholder="street...">
+                        <small *ngIf="applyForm.get('address.address1').invalid && applyForm.get('address.address1').touched"
+                            class="text-danger">
+                            *Please enter the Address.
+                        </small>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="City" class="form-label">City<i *ngIf="applyForm.get('address.city').invalid" 
+                                    class="fas fa-exclamation-circle" style="color: red;">*</i>:</label>
+                                <input type="text" id="City" formControlName="city" class="form-control"
+                                    placeholder="city...">
+                                <small *ngIf="applyForm.get('address.city').invalid && applyForm.get('address.city').touched"
+                                    class="text-danger">
+                                    *Please enter the City.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="Postal" class="form-label">Postal Code<i *ngIf="applyForm.get('address.postal').invalid"
+                                     class="fas fa-exclamation-circle" style="color: red;">*</i>:</label>
+                                <input type="text" id="Postal" formControlName="postal" class="form-control"
+                                    placeholder="postal...">
+                                <small *ngIf="applyForm.get('address.postal').invalid && applyForm.get('address.postal').touched"
+                                    class="text-danger">
+                                    *Please enter the Postal.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="State" class="form-label">State<i *ngIf="applyForm.get('address.state').invalid" 
+                                    class="fas fa-exclamation-circle" style="color: red;">*</i>:</label>
+                                <input type="text" id="State" formControlName="state" class="form-control"
+                                    placeholder="state...">
+                                <small *ngIf="applyForm.get('address.state').invalid && applyForm.get('address.state').touched"
+                                    class="text-danger">
+                                    *Please enter the State.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="Country" class="form-label">Country<i *ngIf="applyForm.get('address.country').invalid"
+                                     class="fas fa-exclamation-circle" style="color: red;">*</i>:</label>
+                                <input type="text" id="Country" formControlName="country" class="form-control"
+                                    placeholder="country...">
+                                <small *ngIf="applyForm.get('address.country').invalid && applyForm.get('address.country').touched"
+                                    class="text-danger">
+                                    *Please enter the Country.
+                                </small>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="Qualification" class="form-label">Qualification<i *ngIf="applyForm.get('qualification').invalid" 
+                        class="fas fa-exclamation-circle" style="color: red;">*</i>:</label>
+                    <input type="text" id="Qualification" formControlName="qualification" class="form-control"
+                        placeholder="qualification...">
+                    <small *ngIf="applyForm.get('qualification').invalid && applyForm.get('qualification').touched"
+                        class="text-danger">
+                        *Please enter the Qualification.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="Experience" class="form-label">Experience:</label>
+                    <textarea type="text" id="Experience" formControlName="experience" class="form-control"
+                        placeholder="if no (enter NA)"></textarea>
+                    <small *ngIf="applyForm.get('experience').invalid && applyForm.get('experience').touched"
+                        class="text-danger">
+                        *Please enter the Experience.
+                    </small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="Skills" class="form-label">Skills<i *ngIf="applyForm.get('skills').invalid"
+                         class="fas fa-exclamation-circle" style="color: red;">*</i>:</label>
+                    <textarea type="text" id="Skills" formControlName="skills" class="form-control"
+                        placeholder="skills..."></textarea>
+                    <small *ngIf="applyForm.get('skills').invalid && applyForm.get('skills').touched"
+                        class="text-danger">
+                        *Please enter the Skills.
+                    </small>
+                </div>
+
+                <!-- <div class="form-group">
+                    <label for="Resume" class="form-label">Upload Resume<i *ngIf="applyForm.get('resume').invalid"
+                        class="fas fa-exclamation-circle" style="color: red;">*</i>: </label>
+                    <input type="file" class="form-control" formControlName="resume" id="Resume" (change)="onFileChange($event)">
+                    <small *ngIf="applyForm.get('resume').invalid && applyForm.get('resume').touched"
+                        class="text-danger">
+                        *Please enter the resume.
+                    </small>
+                </div> -->
+
+                <div class="form-group">
+                    <label for="Resume" class="form-label">Upload Resume<i *ngIf="applyForm.get('resume').invalid"
+                        class="fas fa-exclamation-circle" style="color: red;">*</i>: </label>
+                    <input type="file" class="form-control" formControlName="resume" id="Resume" (change)="onFileChange($event)">
+                    <small *ngIf="applyForm.get('resume').invalid && applyForm.get('resume').touched" class="text-danger">
+                      *Please enter the resume.
+                    </small>
+                  </div>
+
+
+                <button class="btn btn-success mt-3" type="submit" [disabled]="applyForm.invalid">
+                    Apply
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+</div>

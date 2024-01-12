@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">LinkedJob</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <span *ngIf="!isLogged">
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/Login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/Register" [queryParams]="{SignUp:true}" (click)="OnRegisterClicked()">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link">|</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Employee</a>
+                    </li>
+
+                </ul>
+            </span>
+
+            <div *ngIf="isLogged">
+
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        User
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" routerLink="/Profile">View Profile</a></li>
+                        <li><a class="dropdown-item" routerLink="/Profile" [queryParams]="{edit:true}">Edit Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Reset Password</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" (click)="onSignOut()">SignOut</a></li>
+                    </ul>
+                </div>
+
+                <!-- <a (click)="onSignOut()">SignOut</a> -->
+            </div>
+        </div>
+    </div>
+</nav>
