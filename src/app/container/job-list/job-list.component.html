@@ -1,5 +1,11 @@
 <app-search (searchTextChanged)="onSearchByTitle($event)"></app-search>
 
+<div>
+    <div>
+        <p>Welcome,<strong>{{username? username:'user'}}</strong></p>
+    </div>
+</div>
+
 <div class="container mt-4" *ngIf="!isJobCreate">
     <button class="delete-all-btn" (click)="onDeleteAllJob()"> Delete All </button>
     <button (click)="addForm()">Add Jobs</button>

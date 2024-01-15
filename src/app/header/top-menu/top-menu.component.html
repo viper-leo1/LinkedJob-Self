@@ -29,10 +29,12 @@
 
             <div *ngIf="isLogged">
 
-                <div class="dropdown">
+                <!-- <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        User
+                        <div>
+                            <img src="{{userProfile.photoUrl? userProfile.photoUrl:'User'}}" alt="U" height="40" width="40">
+                        </div>
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" routerLink="/Profile">View Profile</a></li>
@@ -41,7 +43,26 @@
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" (click)="onSignOut()">SignOut</a></li>
                     </ul>
-                </div>
+                </div> -->
+
+
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <div class="d-flex align-items-center">
+                        <img src="{{userProfile.photoUrl ? userProfile.photoUrl : 'User'}}" alt="U" height="40" width="40" class="rounded-circle me-2">
+                        <!-- Add Bootstrap's rounded-circle class to make the image circular and me-2 for margin-right -->
+                        <!-- <span class="d-none d-md-inline">{{/* Add text or username here if needed */}}</span> -->
+                      </div>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" routerLink="/Profile">View Profile</a></li>
+                      <li><a class="dropdown-item" routerLink="/Profile" [queryParams]="{edit:true}">Edit Profile</a></li>
+                      <li><a class="dropdown-item" routerLink="/Reset-Password">Reset Password</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" (click)="onSignOut()">Sign Out</a></li>
+                    </ul>
+                  </div>
+                  
 
                 <!-- <a (click)="onSignOut()">SignOut</a> -->
             </div>

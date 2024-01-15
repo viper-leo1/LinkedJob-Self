@@ -10,7 +10,13 @@ export class TopMenuComponent {
 
   isLogged:boolean = false;
 
-  constructor(private _authService:AuthService){}
+  userProfile
+
+  constructor(private _authService:AuthService){
+    this._authService.profileInfo.subscribe((res)=>{
+      this.userProfile=res;
+    })
+  }
 
   ngOnInit(){
     this._authService.user.subscribe(res=>{

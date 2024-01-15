@@ -2,12 +2,14 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="card">
-                <img src="https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png"
-                    class="card-img-top" alt="User Image" height="300" width="110">
+                <div>
+                    <img src="{{userProfile.photoUrl}}"
+                        class="card-img-top" alt="User Image" height="300" width="110">
+                </div>
                 <!-- <img src="{{ userProfile.image }}" class="card-img-top" alt="User Image"> -->
                 <div class="card-body">
-                    <h5 class="card-title">user.name</h5>
-                    <p class="card-text">user.email</p>
+                    <h5 class="card-title">{{userProfile.displayName}}</h5>
+                    <p class="card-text">{{userProfile.email}}</p>
                     <!-- <h5 class="card-title">{{ userProfile.name }}</h5>
                     <p class="card-text">{{ userProfile.email }}</p> -->
 

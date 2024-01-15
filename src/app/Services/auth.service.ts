@@ -13,6 +13,12 @@ export class AuthService {
 
   user =new BehaviorSubject<AuthUser>(null);
 
+  profileInfo = new BehaviorSubject({
+    displayName:'',
+    email:'',
+    photoUrl:''
+  });
+
   private tokenExpirationTimer:any;
 
   ApiUrl= 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
@@ -97,6 +103,7 @@ export class AuthService {
 
       const expirationduration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
       this.autoSignOut(expirationduration);
+      this.getUserProfile(loggedInUser.token);
     }
 
   }
@@ -118,6 +125,8 @@ export class AuthService {
     this.autoSignOut(expiresIn * 1000)
 
     localStorage.setItem('Userdata',JSON.stringify(user))
+
+    this.getUserProfile(token)
   }
 
   //post request for uploading the data of the user here
@@ -137,13 +146,28 @@ export class AuthService {
 
   // getting the user data from the firebase server using the get method
   getUserProfile(tokenId){
-    return this.http.get(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${this.ApiKey}`).pipe(
-      catchError((err)=>{
-        console.log(err);
-      return this._errorService.handleError(err);
-    }))
+    return this.http.post<any>(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${this.ApiKey}`,
+    {
+      idToken:tokenId
+    }).subscribe((res)=>{
+      this.profileInfo.next({ 
+        displayName:res.users[0].displayName,
+        email:res.users[0].email,
+        photoUrl:res.users[0].photoUrl})
+    })
   }
 
+  changePassword(tokenId , newPassword){
+    return this.http.post<any>(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${this.ApiKey}`, {
+      idToken: tokenId,
+      password: newPassword,
+      returnSecureToken:true
+    }).pipe(
+      catchError((err)=>{
+        console.log('authservice',err);
+        return this._errorService.handleError(err);
+      }))
+  }
 
 
 }

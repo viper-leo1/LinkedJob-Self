@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JobsDataService } from '../../Services/jobs-data.service';
 import { Jobs } from '../../model/Jobs';
+import { AuthService } from '../../Services/auth.service';
 
 @Component({
   selector: 'job-list',
@@ -26,12 +27,19 @@ export class JobListComponent implements OnInit {
 
   searchText:string='';
 
+  username:string='';
+
   //declaration to form a formGroup that is created in the view template by reference
   reactiveForm: FormGroup;
 
 
   constructor(private fb: FormBuilder,
-    private jobsDataService: JobsDataService) { }
+    private jobsDataService: JobsDataService,
+    private _authService:AuthService) {
+      this._authService.profileInfo.subscribe((res)=>{
+        this.username=res.displayName;
+      })
+     }
 
   ngOnInit() {
     this.reactiveForm = this.fb.group({
@@ -44,6 +52,10 @@ export class JobListComponent implements OnInit {
       salary: [null, [Validators.required, Validators.pattern(/^[a-zA-Z0-9 ]*$/)]],
 
     });
+
+    this._authService.profileInfo.subscribe((res)=>{
+      this.username=res.displayName;
+    })
 
     this.fetchJob();
   }

@@ -18,6 +18,7 @@ import { authGuard } from './auth/auth.guard';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SearchComponent } from './container/search/search.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const routes:Routes=[
   {path:'',component:AuthComponent},
@@ -28,6 +29,7 @@ const routes:Routes=[
   {path:'Jobs',component:JobListComponent},
   {path:'Apply',component:CreateJobComponent},
   {path:'Profile',component:ProfileComponent},
+  {path:'Reset-Password' , component: ChangePasswordComponent},
   {path:'**', component:NotFoundComponent}
 
 ]
@@ -46,6 +48,7 @@ const routes:Routes=[
     NotFoundComponent,
     SearchComponent,
     ProfileComponent,
+    ChangePasswordComponent,
     
   ],
   imports: [

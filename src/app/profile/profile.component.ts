@@ -16,6 +16,8 @@ export class ProfileComponent implements OnInit {
 
   token= JSON.parse(localStorage.getItem('Userdata'))._token;
 
+  userProfile
+
   constructor(private fb:FormBuilder,
               private router:Router,
               private activatedRoute:ActivatedRoute,
@@ -31,6 +33,14 @@ export class ProfileComponent implements OnInit {
       photo: [null,[Validators.required]]
     })
 
+    this._authService.profileInfo.subscribe((res)=>{
+      this.userProfile = res;
+      this.profileForm.setValue({
+        name:res.displayName,
+        photo:res.photoUrl
+      })
+    })
+
     //getting the snapshot of the activated route here 
     this.activatedRoute.queryParamMap.subscribe(res=>{
       console.log(res.get('edit'))
@@ -44,6 +54,8 @@ export class ProfileComponent implements OnInit {
       }
     })
 
+    
+
   }
 
   //switch the editing mode of the profile edit page of the user.
@@ -53,7 +65,7 @@ export class ProfileComponent implements OnInit {
   //discard the submitted form if you dont want to change the changes
   noEditProfile(){
     this.isEditing = false;
-    this.profileForm.reset();
+    // this.profileForm.reset();
     this.router.navigate([],{queryParams:{edit:null}});
     console.log('helloksihvytfsyud');
   }
@@ -72,17 +84,22 @@ export class ProfileComponent implements OnInit {
     //send the user data to update the data of the user. name and image url will be uploaded. 
     //token will be extracted from the localstorage 
     this._authService.userProfile(body).subscribe(
-      (res)=>{console.log(res) 
+      (res)=>{
+        // console.log(res) 
       this.profileForm.reset(),
       this.isEditing = false;
+
+      console.log(res);
+      this._authService.getUserProfile(this.token)
       },
       (err)=>{console.log(err)}
       )
 
       //getting the data of the updated user by calling the authService
-      this._authService.getUserProfile(this.token).subscribe(
-        (res)=>{console.log(res)},
-        (err)=>{console.log(err)})
+      this._authService.profileInfo.subscribe((res)=>{
+        console.log(res);
+        this.user = res;
+      })
   }
 
   onUpdateProfile(){}
