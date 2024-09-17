@@ -101,6 +101,7 @@ export class ProfileComponent implements OnInit {
         this.user = res;
       })
   }
+  console.log("enter")
 
   onUpdateProfile(){}
 
